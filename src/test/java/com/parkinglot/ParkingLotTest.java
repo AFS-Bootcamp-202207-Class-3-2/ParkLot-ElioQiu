@@ -40,6 +40,21 @@ public class ParkingLotTest {
     }
 
     @Test
+    void should_return_right_car_when_fetch_car_twice_given_two_parkedCars_and_two_tickets() {
+        //given
+        ParkingLot parkingLot = new ParkingLot(2);
+        Ticket ticket1 = parkingLot.park(new Car(1));
+        Ticket ticket2 = parkingLot.park(new Car(2));
+        //when
+        Car car1 = parkingLot.fetch(ticket1);
+        Car car2 = parkingLot.fetch(ticket2);
+        //then
+        assertEquals(car1, new Car(1));
+        assertEquals(car2, new Car(2));
+    }
+
+
+    @Test
     void should_return_null_when_fetch_given_a_parkingLot_and_a_wrong_parking_ticket() {
         //given
         ParkingLot parkingLot = new ParkingLot();
