@@ -1,5 +1,6 @@
 package com.parkinglot;
 
+import com.parkinglot.Constant.Constant;
 import com.parkinglot.Exceptions.NoAvailablePositionException;
 import org.junit.jupiter.api.Test;
 
@@ -18,16 +19,15 @@ public class ParkingLotTest {
     }
 
     @Test
-    void should_return_return_No_available_position_when_park_given_full_parkingLot_and_a_car() {
+    void should_return_No_available_position_when_park_given_full_parkingLot_and_a_car() {
         //given
         ParkingLot fullParkingLot = new ParkingLot(1);
         fullParkingLot.park(new Car(1 ));
         //when
-        Ticket ticket = fullParkingLot.park(new Car(2));
         NoAvailablePositionException exception = assertThrows(NoAvailablePositionException.class,
                 () -> fullParkingLot.park(new Car(2)));
         //then
-        assertEquals("No available position.", exception.getMessage());
+        assertEquals(Constant.NO_AVAILABLE_POSITION, exception.getMessage());
     }
 
     @Test
