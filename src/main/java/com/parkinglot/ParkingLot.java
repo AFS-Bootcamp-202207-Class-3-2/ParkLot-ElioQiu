@@ -47,4 +47,8 @@ public class ParkingLot {
         }
         throw new UnrecognizedParkingTicketException();
     }
+
+    public boolean haveCapacity() {
+        return currentCapacity != 0;
+    }
 }
