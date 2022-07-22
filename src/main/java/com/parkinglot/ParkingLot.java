@@ -6,22 +6,25 @@ import java.util.stream.Collectors;
 
 public class ParkingLot {
     private static int DEFAULT_CAPACITY = 10;
-    private int capacity;
+    private int currentCapacity;
+    private int totalCapacity;
     private List<Car> parkedCarList = new ArrayList<>();
 
     public ParkingLot() {
-        capacity = DEFAULT_CAPACITY;
+        this.totalCapacity = DEFAULT_CAPACITY;
+        this.currentCapacity = totalCapacity;
     }
 
     public ParkingLot(int capacity) {
-        this.capacity = capacity;
+        this.totalCapacity = capacity;
+        this.currentCapacity = totalCapacity;
     }
 
     public Ticket park(Car car) {
-        if (capacity == 0) {
+        if (currentCapacity == 0) {
             return null;
         }
-        capacity--;
+        currentCapacity--;
         this.parkedCarList.add(car);
         return new Ticket(car.getId());
     }
@@ -34,6 +37,7 @@ public class ParkingLot {
             this.parkedCarList = parkedCarList.stream().filter(
                     parkedCar -> parkedCar.getId() != ticket.getParkingLotId()
                     ).collect(Collectors.toList());
+            currentCapacity++;
             return new Car(ticket.getParkingLotId());
         }
         return null;
