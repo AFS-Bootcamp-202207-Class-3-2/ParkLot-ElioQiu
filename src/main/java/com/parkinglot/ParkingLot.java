@@ -35,10 +35,7 @@ public class ParkingLot {
     }
 
     public Car fetch(Ticket ticket) {
-        boolean haveParkedCar = parkedCarList.stream().filter(
-                parkedCar -> parkedCar.getId() == ticket.getParkingLotId()
-        ).findAny().isPresent();
-        if (haveParkedCar) {
+        if (isCarInThisLot(ticket)) {
             this.parkedCarList = parkedCarList.stream().filter(
                     parkedCar -> parkedCar.getId() != ticket.getParkingLotId()
                     ).collect(Collectors.toList());
@@ -50,5 +47,11 @@ public class ParkingLot {
 
     public boolean haveCapacity() {
         return currentCapacity != 0;
+    }
+
+    public boolean isCarInThisLot(Ticket ticket) {
+        return parkedCarList.stream().filter(
+                parkedCar -> parkedCar.getId() == ticket.getParkingLotId()
+        ).findAny().isPresent();
     }
 }
