@@ -26,6 +26,19 @@ public class ParkingBoyTest {
     }
 
     @Test
+    void should_return_parking_ticket_by_second_parkingLot_park_given_a_parking_boy_with_two_parkingLots_and_a_car() {
+        //given
+        List<ParkingLot> parkingLotList = new ArrayList<>();
+        parkingLotList.add(new ParkingLot(1));
+        parkingLotList.add(new ParkingLot(1));
+        ParkingBoy parkingBoy = new ParkingBoy(parkingLotList);
+        parkingBoy.park(new Car(1));
+        //when
+        Ticket ticket = parkingBoy.park(new Car(2));
+        //then
+        assertNotNull(ticket);
+    }
+    @Test
     void should_return_a_car_when_fetch_given_a_parking_boy_with_two_parkingLots_and_a_parking_ticket() {
         //given
         List<ParkingLot> parkingLotList = new ArrayList<>();
