@@ -31,8 +31,8 @@ public class ParkingLot {
                 parkedCar -> parkedCar.getId() == ticket.getParkingLotId()
         ).findAny().isPresent();
         if (haveParkedCar) {
-            parkedCarList.stream().filter(
-                    parkedCar -> parkedCar.getId() == ticket.getParkingLotId()
+            this.parkedCarList = parkedCarList.stream().filter(
+                    parkedCar -> parkedCar.getId() != ticket.getParkingLotId()
                     ).collect(Collectors.toList());
             return new Car(ticket.getParkingLotId());
         }
