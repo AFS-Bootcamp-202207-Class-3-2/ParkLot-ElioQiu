@@ -2,6 +2,7 @@ package com.parkinglot;
 
 import com.parkinglot.Constant.Constant;
 import com.parkinglot.Exceptions.NoAvailablePositionException;
+import com.parkinglot.Exceptions.UnrecognizedParkingTicketException;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -55,6 +56,24 @@ public class ParkingBoyTest {
                 () -> parkingBoy.park(new Car(3)));
         //then
         assertEquals(Constant.NO_AVAILABLE_POSITION, exception.getMessage());
+    }
+
+    @Test
+    void should_return_Unrecognized_parking_ticket_when_fetch_given_a_parking_boy_with_two_parkingLots_a_parkingLot_and_a_wrong_parking_ticket() {
+        //given
+        List<ParkingLot> parkingLotList = new ArrayList<>();
+        parkingLotList.add(new ParkingLot(1));
+        parkingLotList.add(new ParkingLot(1));
+        ParkingBoy parkingBoy = new ParkingBoy(parkingLotList);
+        parkingBoy.park(new Car(1));
+        parkingBoy.park(new Car(2));
+
+        Ticket ticket = new Ticket(3);
+        //when
+        UnrecognizedParkingTicketException exception = assertThrows(UnrecognizedParkingTicketException.class,
+                () -> parkingBoy.fetch(ticket));
+        //then
+        assertEquals(Constant.UNRECOGNIZED_PARKING_TICKET, exception.getMessage());
     }
 
     
