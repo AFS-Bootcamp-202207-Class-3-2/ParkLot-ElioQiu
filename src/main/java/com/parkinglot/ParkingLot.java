@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 public class ParkingLot {
     private static int DEFAULT_CAPACITY = 10;
     private int currentCapacity;
-    private int totalCapacity;
+    private final int totalCapacity;
     private List<Car> parkedCarList = new ArrayList<>();
 
     public ParkingLot() {
