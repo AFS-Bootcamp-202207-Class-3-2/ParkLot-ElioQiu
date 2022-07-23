@@ -2,6 +2,7 @@ package com.parkinglot.Strategy;
 
 import com.parkinglot.Car;
 import com.parkinglot.Exceptions.NoAvailablePositionException;
+import com.parkinglot.Exceptions.UnrecognizedParkingTicketException;
 import com.parkinglot.ParkingLot;
 import com.parkinglot.Ticket;
 
@@ -26,7 +27,11 @@ public class SuperSmartStrategy implements ParkingStrategy{
 
     @Override
     public Car fetch(Ticket ticket) {
-        return null;
+        ParkingLot parkedLot = parkingLotList.stream()
+                .filter(parkingLot -> parkingLot.isCarInThisLot(ticket))
+                .findFirst()
+                .orElseThrow(UnrecognizedParkingTicketException::new);
+        return parkedLot.fetch(ticket);
     }
 
     @Override
