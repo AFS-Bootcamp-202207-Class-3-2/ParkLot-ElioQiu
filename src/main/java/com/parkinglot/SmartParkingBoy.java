@@ -20,12 +20,8 @@ public class SmartParkingBoy {
 
     public Ticket park(Car car) {
         ParkingLot parkingLot = parkingLotList.stream()
-                .filter(ParkingLot::haveCapacity).min((p1, p2) -> {
-                    if (p1.getCurrentCapacity() == p2.getCurrentCapacity()) {
-                        return -1;
-                    }
-                    return Integer.compare(p1.getCurrentCapacity(), p2.getCurrentCapacity());
-                })
+                .filter(ParkingLot::haveCapacity)
+                .max(Comparator.comparingInt(ParkingLot::getCurrentCapacity))
                 .orElseThrow(NoAvailablePositionException::new);
         return parkingLot.park(car);
     }

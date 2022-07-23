@@ -23,4 +23,18 @@ public class SmartParkingBoyTest {
         boolean isParkedCarInFirstParkingLot = smartParkingBoy.getParkingLotList().get(0).isCarInThisLot(ticket);
         assertEquals(isParkedCarInFirstParkingLot, true);
     }
+
+    @Test
+    void should_return_car_in_more_empty_parkingLot_when_park_given_a_smart_parkingBoy_with_two_parkingLot_and_second_more_empty_positions_and_a_car() {
+        //given
+        List<ParkingLot> parkingLotList = new ArrayList<>();
+        parkingLotList.add(new ParkingLot(1));
+        parkingLotList.add(new ParkingLot(2));
+        SmartParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLotList);
+        //when
+        Ticket ticket = smartParkingBoy.park(new Car(1));
+        //then
+        boolean isParkedCarInSecondParkingLot = smartParkingBoy.getParkingLotList().get(1).isCarInThisLot(ticket);
+        assertEquals(isParkedCarInSecondParkingLot, true);
+    }
 }
