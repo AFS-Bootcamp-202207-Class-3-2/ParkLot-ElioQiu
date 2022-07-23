@@ -18,20 +18,18 @@ public class ParkingBoy {
     }
 
     public Ticket park(Car car) {
-        List<ParkingLot> parkedLot = parkingLotList.stream().filter(parkingLot -> parkingLot.haveCapacity())
-                .collect(Collectors.toList());
-        if (parkedLot.size() != 0) {
-            return parkedLot.get(0).park(car);
-        }
-        throw new NoAvailablePositionException();
+        ParkingLot parkedLot = parkingLotList.stream()
+                .filter(ParkingLot::haveCapacity)
+                .findFirst()
+                .orElseThrow(NoAvailablePositionException::new);
+        return parkedLot.park(car);
     }
 
     public Car fetch(Ticket ticket) {
-        List<ParkingLot> parkedLot = parkingLotList.stream().filter(parkingLot -> parkingLot.isCarInThisLot(ticket))
-                .collect(Collectors.toList());
-        if (parkedLot.size() != 0) {
-            return parkedLot.get(0).fetch(ticket);
-        }
-        throw new UnrecognizedParkingTicketException();
+        ParkingLot parkedLot = parkingLotList.stream()
+                .filter(parkingLot -> parkingLot.isCarInThisLot(ticket))
+                .findFirst()
+                .orElseThrow(UnrecognizedParkingTicketException::new);
+        return parkedLot.fetch(ticket);
     }
 }
