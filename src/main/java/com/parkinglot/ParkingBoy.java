@@ -9,6 +9,10 @@ import java.util.stream.Collectors;
 public class ParkingBoy {
     private List<ParkingLot> parkingLotList;
 
+    public List<ParkingLot> getParkingLotList() {
+        return parkingLotList;
+    }
+
     public ParkingBoy(List<ParkingLot> parkingLotList) {
         this.parkingLotList = parkingLotList;
     }

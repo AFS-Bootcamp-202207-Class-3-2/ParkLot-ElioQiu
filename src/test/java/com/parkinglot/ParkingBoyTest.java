@@ -36,7 +36,8 @@ public class ParkingBoyTest {
         //when
         Ticket ticket = parkingBoy.park(new Car(2));
         //then
-        assertNotNull(ticket);
+        boolean isParkedCarInSecondParkingLot = parkingBoy.getParkingLotList().get(1).isCarInThisLot(ticket);
+        assertEquals(isParkedCarInSecondParkingLot, true);
     }
     @Test
     void should_return_a_car_when_fetch_given_a_parking_boy_with_two_parkingLots_and_a_parking_ticket() {
