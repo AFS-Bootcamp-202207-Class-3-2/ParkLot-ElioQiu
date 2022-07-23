@@ -1,5 +1,6 @@
 package com.parkinglot;
 
+import com.parkinglot.Exceptions.UnrecognizedParkingTicketException;
 import com.parkinglot.Strategy.ParkingStrategy;
 
 import java.util.List;
@@ -19,7 +20,11 @@ public class ParkingBoy {
     }
 
     public Car fetch(Ticket ticket) {
-        return parkingStrategy.fetch(ticket);
+        ParkingLot parkedLot = parkingStrategy.getParkingLotList().stream()
+                .filter(parkingLot -> parkingLot.isCarInThisLot(ticket))
+                .findFirst()
+                .orElseThrow(UnrecognizedParkingTicketException::new);
+        return parkedLot.fetch(ticket);
     }
 
     public List<ParkingLot> getParkingLotList() {

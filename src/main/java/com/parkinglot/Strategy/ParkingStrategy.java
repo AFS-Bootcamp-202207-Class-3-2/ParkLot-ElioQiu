@@ -8,6 +8,5 @@ import java.util.List;
 
 public interface ParkingStrategy {
     Ticket park(Car car);
-    Car fetch(Ticket ticket);
     List<ParkingLot> getParkingLotList();
 }

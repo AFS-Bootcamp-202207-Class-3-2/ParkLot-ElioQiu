@@ -3,7 +3,6 @@ package com.parkinglot;
 import com.parkinglot.Constant.Constant;
 import com.parkinglot.Exceptions.NoAvailablePositionException;
 import com.parkinglot.Exceptions.UnrecognizedParkingTicketException;
-import com.parkinglot.Strategy.SmartStrategy;
 import com.parkinglot.Strategy.SuperSmartStrategy;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
