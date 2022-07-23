@@ -3,6 +3,7 @@ package com.parkinglot;
 import com.parkinglot.Exceptions.NoAvailablePositionException;
 import com.parkinglot.Exceptions.UnrecognizedParkingTicketException;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -55,8 +56,15 @@ public class ParkingLot {
     }
 
     public boolean isCarInThisLot(Ticket ticket) {
-        return parkedCarList.stream().filter(
+        return parkedCarList.stream().anyMatch(
                 parkedCar -> parkedCar.getId() == ticket.getParkingLotId()
-        ).findAny().isPresent();
+        );
     }
+
+    public double calculateRate() {
+        NumberFormat numberFormat = NumberFormat.getInstance();
+        numberFormat.setMaximumFractionDigits(2);
+        return Double.parseDouble(numberFormat.format(currentCapacity/totalCapacity* 100L));
+    }
+
 }
