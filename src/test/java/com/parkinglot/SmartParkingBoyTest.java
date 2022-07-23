@@ -1,12 +1,15 @@
 package com.parkinglot;
 
+import com.parkinglot.Constant.Constant;
+import com.parkinglot.Exceptions.NoAvailablePositionException;
+import com.parkinglot.Exceptions.UnrecognizedParkingTicketException;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class SmartParkingBoyTest {
 
@@ -54,4 +57,56 @@ public class SmartParkingBoyTest {
         assertEquals(car1, new Car(1));
         assertEquals(car2, new Car(2));
     }
+
+    @Test
+    void should_return_No_available_position_when_fetch_given_a_smart_parking_boy_with_full_parkingLot_and_a_car() {
+        //given
+        List<ParkingLot> parkingLotList = new ArrayList<>();
+        parkingLotList.add(new ParkingLot(1));
+        parkingLotList.add(new ParkingLot(1));
+        SmartParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLotList);
+        smartParkingBoy.park(new Car(1));
+        smartParkingBoy.park(new Car(2));
+        //when
+        NoAvailablePositionException exception = assertThrows(NoAvailablePositionException.class,
+                () -> smartParkingBoy.park(new Car(3)));
+        //then
+        assertEquals(Constant.NO_AVAILABLE_POSITION, exception.getMessage());
+    }
+
+    @Test
+    void should_return_Unrecognized_parking_ticket_when_fetch_given_a_smart_parking_boy_with_two_parkingLots_a_parkingLot_and_a_wrong_parking_ticket() {
+        //given
+        List<ParkingLot> parkingLotList = new ArrayList<>();
+        parkingLotList.add(new ParkingLot(1));
+        parkingLotList.add(new ParkingLot(1));
+        SmartParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLotList);
+        smartParkingBoy.park(new Car(1));
+        smartParkingBoy.park(new Car(2));
+
+        Ticket ticket = new Ticket(3);
+        //when
+        UnrecognizedParkingTicketException exception = assertThrows(UnrecognizedParkingTicketException.class,
+                () -> smartParkingBoy.fetch(ticket));
+        //then
+        assertEquals(Constant.UNRECOGNIZED_PARKING_TICKET, exception.getMessage());
+    }
+
+    @Test
+    void should_return_Unrecognized_parking_ticket_when_fetch_given_a_smart_parking_boy_with_two_parkingLots_and_used_parking_ticket() {
+        List<ParkingLot> parkingLotList = new ArrayList<>();
+        parkingLotList.add(new ParkingLot(1));
+        parkingLotList.add(new ParkingLot(1));
+        SmartParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLotList);
+        smartParkingBoy.park(new Car(1));
+        smartParkingBoy.park(new Car(2));
+        smartParkingBoy.fetch(new Ticket(1));
+        Ticket ticket = new Ticket(1);
+        //when
+        UnrecognizedParkingTicketException exception = assertThrows(UnrecognizedParkingTicketException.class,
+                () -> smartParkingBoy.fetch(ticket));
+        //then
+        assertEquals(Constant.UNRECOGNIZED_PARKING_TICKET, exception.getMessage());
+    }
+
 }
