@@ -27,11 +27,10 @@ public class SmartParkingBoy {
     }
 
     public Car fetch(Ticket ticket) {
-        List<ParkingLot> parkedLot = parkingLotList.stream().filter(parkingLot -> parkingLot.isCarInThisLot(ticket))
-                .collect(Collectors.toList());
-        if (parkedLot.size() != 0) {
-            return parkedLot.get(0).fetch(ticket);
-        }
-        throw new UnrecognizedParkingTicketException();
+        ParkingLot parkedLot = parkingLotList.stream()
+                .filter(parkingLot -> parkingLot.isCarInThisLot(ticket))
+                .findFirst()
+                .orElseThrow(UnrecognizedParkingTicketException::new);
+        return parkedLot.fetch(ticket);
     }
 }
