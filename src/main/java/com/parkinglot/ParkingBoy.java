@@ -1,35 +1,28 @@
 package com.parkinglot;
 
-import com.parkinglot.Exceptions.NoAvailablePositionException;
-import com.parkinglot.Exceptions.UnrecognizedParkingTicketException;
+import com.parkinglot.Strategy.ParkingStrategy;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class ParkingBoy {
-    private List<ParkingLot> parkingLotList;
-
-    public List<ParkingLot> getParkingLotList() {
-        return parkingLotList;
+    private ParkingStrategy parkingStrategy;
+    public ParkingBoy(ParkingStrategy parkingStrategy) {
+        this.parkingStrategy = parkingStrategy;
     }
 
-    public ParkingBoy(List<ParkingLot> parkingLotList) {
-        this.parkingLotList = parkingLotList;
+    public void setParkingStrategy(ParkingStrategy parkingStrategy) {
+        this.parkingStrategy = parkingStrategy;
     }
 
     public Ticket park(Car car) {
-        ParkingLot parkedLot = parkingLotList.stream()
-                .filter(ParkingLot::haveCapacity)
-                .findFirst()
-                .orElseThrow(NoAvailablePositionException::new);
-        return parkedLot.park(car);
+        return parkingStrategy.park(car);
     }
 
     public Car fetch(Ticket ticket) {
-        ParkingLot parkedLot = parkingLotList.stream()
-                .filter(parkingLot -> parkingLot.isCarInThisLot(ticket))
-                .findFirst()
-                .orElseThrow(UnrecognizedParkingTicketException::new);
-        return parkedLot.fetch(ticket);
+        return parkingStrategy.fetch(ticket);
+    }
+
+    public List<ParkingLot> getParkingLotList() {
+        return parkingStrategy.getParkingLotList();
     }
 }

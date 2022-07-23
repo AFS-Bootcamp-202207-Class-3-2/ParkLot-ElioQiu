@@ -1,23 +1,26 @@
-package com.parkinglot;
+package com.parkinglot.Strategy;
 
+import com.parkinglot.Car;
 import com.parkinglot.Exceptions.NoAvailablePositionException;
 import com.parkinglot.Exceptions.UnrecognizedParkingTicketException;
+import com.parkinglot.ParkingLot;
+import com.parkinglot.Ticket;
 
 import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
-public class SmartParkingBoy {
+public class SmartStrategy implements ParkingStrategy{
     private List<ParkingLot> parkingLotList;
 
     public List<ParkingLot> getParkingLotList() {
         return parkingLotList;
     }
 
-    public SmartParkingBoy(List<ParkingLot> parkingLotList) {
+    public SmartStrategy(List<ParkingLot> parkingLotList) {
         this.parkingLotList = parkingLotList;
     }
 
+    @Override
     public Ticket park(Car car) {
         ParkingLot parkingLot = parkingLotList.stream()
                 .filter(ParkingLot::haveCapacity)
@@ -26,6 +29,7 @@ public class SmartParkingBoy {
         return parkingLot.park(car);
     }
 
+    @Override
     public Car fetch(Ticket ticket) {
         ParkingLot parkedLot = parkingLotList.stream()
                 .filter(parkingLot -> parkingLot.isCarInThisLot(ticket))
