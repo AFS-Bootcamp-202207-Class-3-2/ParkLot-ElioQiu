@@ -8,18 +8,12 @@ import com.parkinglot.Ticket;
 import java.util.List;
 
 public class StupidStrategy implements ParkingStrategy{
-    private List<ParkingLot> parkingLotList;
 
-    public List<ParkingLot> getParkingLotList() {
-        return parkingLotList;
-    }
-
-    public StupidStrategy(List<ParkingLot> parkingLotList) {
-        this.parkingLotList = parkingLotList;
+    public StupidStrategy() {
     }
 
     @Override
-    public Ticket park(Car car) {
+    public Ticket park(Car car, List<ParkingLot> parkingLotList) {
         ParkingLot parkedLot = parkingLotList.stream()
                 .filter(ParkingLot::haveCapacity)
                 .findFirst()

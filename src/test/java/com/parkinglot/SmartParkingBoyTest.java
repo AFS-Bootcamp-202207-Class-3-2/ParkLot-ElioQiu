@@ -21,7 +21,7 @@ public class SmartParkingBoyTest {
         List<ParkingLot> parkingLotList = new ArrayList<>();
         parkingLotList.add(new ParkingLot(1));
         parkingLotList.add(new ParkingLot(1));
-        parkingBoy = new ParkingBoy(new SmartStrategy(parkingLotList));
+        parkingBoy = new ParkingBoy(new SmartStrategy(), parkingLotList);
     }
 
     @Test
@@ -40,7 +40,7 @@ public class SmartParkingBoyTest {
         List<ParkingLot> parkingLotList = new ArrayList<>();
         parkingLotList.add(new ParkingLot(1));
         parkingLotList.add(new ParkingLot(2));
-        parkingBoy = new ParkingBoy(new SmartStrategy(parkingLotList));
+        parkingBoy = new ParkingBoy(new SmartStrategy(), parkingLotList);
         //when
         Ticket ticket = parkingBoy.park(new Car(1));
         //then

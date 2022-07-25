@@ -11,13 +11,12 @@ import java.util.stream.Collectors;
 public class ParkingLot {
     private static int DEFAULT_CAPACITY = 10;
     private int currentCapacity;
+    private final int totalCapacity;
+    private List<Car> parkedCarList;
 
     public int getCurrentCapacity() {
         return currentCapacity;
     }
-
-    private final int totalCapacity;
-    private List<Car> parkedCarList;
 
     public ParkingLot() {
         this.totalCapacity = DEFAULT_CAPACITY;

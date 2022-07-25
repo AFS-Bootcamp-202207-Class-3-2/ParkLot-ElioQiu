@@ -20,7 +20,7 @@ public class StupidParkingBoyTest {
         List<ParkingLot> parkingLotList = new ArrayList<>();
         parkingLotList.add(new ParkingLot(1));
         parkingLotList.add(new ParkingLot(1));
-        parkingBoy = new ParkingBoy(new StupidStrategy(parkingLotList));
+        parkingBoy = new ParkingBoy(new StupidStrategy(), parkingLotList);
     }
     
     @Test

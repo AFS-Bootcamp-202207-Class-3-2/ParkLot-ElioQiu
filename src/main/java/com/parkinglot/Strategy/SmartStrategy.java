@@ -9,18 +9,12 @@ import java.util.Comparator;
 import java.util.List;
 
 public class SmartStrategy implements ParkingStrategy{
-    private List<ParkingLot> parkingLotList;
 
-    public List<ParkingLot> getParkingLotList() {
-        return parkingLotList;
-    }
-
-    public SmartStrategy(List<ParkingLot> parkingLotList) {
-        this.parkingLotList = parkingLotList;
+    public SmartStrategy() {
     }
 
     @Override
-    public Ticket park(Car car) {
+    public Ticket park(Car car, List<ParkingLot> parkingLotList) {
         ParkingLot parkingLot = parkingLotList.stream()
                 .filter(ParkingLot::haveCapacity)
                 .max(Comparator.comparingInt(ParkingLot::getCurrentCapacity))

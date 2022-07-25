@@ -7,20 +7,18 @@ import java.util.List;
 
 public class ParkingBoy {
     private ParkingStrategy parkingStrategy;
-    public ParkingBoy(ParkingStrategy parkingStrategy) {
+    private List<ParkingLot> parkingLotList;
+    public ParkingBoy(ParkingStrategy parkingStrategy, List<ParkingLot> parkingLotList) {
         this.parkingStrategy = parkingStrategy;
-    }
-
-    public void setParkingStrategy(ParkingStrategy parkingStrategy) {
-        this.parkingStrategy = parkingStrategy;
+        this.parkingLotList = parkingLotList;
     }
 
     public Ticket park(Car car) {
-        return parkingStrategy.park(car);
+        return parkingStrategy.park(car, parkingLotList);
     }
 
     public Car fetch(Ticket ticket) {
-        ParkingLot parkedLot = parkingStrategy.getParkingLotList().stream()
+        ParkingLot parkedLot = parkingLotList.stream()
                 .filter(parkingLot -> parkingLot.isCarInThisLot(ticket))
                 .findFirst()
                 .orElseThrow(UnrecognizedParkingTicketException::new);
@@ -28,6 +26,6 @@ public class ParkingBoy {
     }
 
     public List<ParkingLot> getParkingLotList() {
-        return parkingStrategy.getParkingLotList();
+        return this.parkingLotList;
     }
 }

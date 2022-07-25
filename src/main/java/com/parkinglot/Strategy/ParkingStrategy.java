@@ -7,6 +7,5 @@ import com.parkinglot.Ticket;
 import java.util.List;
 
 public interface ParkingStrategy {
-    Ticket park(Car car);
-    List<ParkingLot> getParkingLotList();
+    Ticket park(Car car, List<ParkingLot> parkingLotList);
 }

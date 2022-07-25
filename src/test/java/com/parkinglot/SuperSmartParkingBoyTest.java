@@ -21,7 +21,7 @@ public class SuperSmartParkingBoyTest {
         List<ParkingLot> parkingLotList = new ArrayList<>();
         parkingLotList.add(new ParkingLot(3));
         parkingLotList.add(new ParkingLot(3));
-        parkingBoy = new ParkingBoy(new SuperSmartStrategy(parkingLotList));
+        parkingBoy = new ParkingBoy(new SuperSmartStrategy(), parkingLotList);
     }
 
     @Test
@@ -64,7 +64,7 @@ public class SuperSmartParkingBoyTest {
         List<ParkingLot> parkingLotList = new ArrayList<>();
         parkingLotList.add(new ParkingLot(1));
         parkingLotList.add(new ParkingLot(1));
-        parkingBoy = new ParkingBoy(new SuperSmartStrategy(parkingLotList));
+        parkingBoy = new ParkingBoy(new SuperSmartStrategy(), parkingLotList);
         parkingBoy.park(new Car(1));
         parkingBoy.park(new Car(2));
         //when
